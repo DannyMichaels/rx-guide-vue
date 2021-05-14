@@ -1,15 +1,19 @@
-<template lang="">
-  <div>
-    <ul class="meds-list" v-for="med in allMeds" :key="med.id">
-      <li class="med-card">{{ med.fields.name }}</li>
-    </ul>
-  </div>
+<template>
+  <ul class="meds-list">
+    <template v-for="med in allMeds" :key="med.id">
+      <MedCard :med="med" :isEditable="false" />
+    </template>
+  </ul>
 </template>
 <script>
 import { getAllMeds } from '../services/allMeds';
+import MedCard from '../components/MedCard';
 
 export default {
   name: 'About',
+  components: {
+    MedCard,
+  },
   data() {
     return {
       allMeds: [],
@@ -30,7 +34,10 @@ export default {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-.med-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+  margin: 10px;
 }
 </style>

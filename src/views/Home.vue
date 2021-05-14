@@ -1,7 +1,7 @@
 <template>
   <ul class="meds-list">
     <template v-for="med in userMeds" :key="med.id">
-      <MedCard :med="med" :isEditable="true" />
+      <MedCard :med="med" :isEditable="true" :onDeleteMed="onDeleteMed" />
     </template>
   </ul>
 </template>
@@ -20,6 +20,12 @@ export default {
       allMeds: [],
       userMeds: [],
     };
+  },
+  methods: {
+    onDeleteMed: function(id) {
+      let newState = this.userMeds.filter((med) => med.id !== id);
+      return (this.userMeds = newState);
+    },
   },
   mounted() {
     const fetchUserMeds = async () => {

@@ -10,3 +10,12 @@ export const getUserMeds = async () => {
   });
   return response.data.records;
 };
+
+export const deleteMed = async (medId) => {
+  const deleteUrl = `https://api.airtable.com/v0/${process.env.VUE_APP_AIRTABLE_BASE}/addedMeds/${medId}`;
+  await axios.delete(deleteUrl, {
+    headers: {
+      Authorization: `Bearer ${process.env.VUE_APP_AIRTABLE_KEY}`,
+    },
+  });
+};

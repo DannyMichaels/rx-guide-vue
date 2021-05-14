@@ -10,26 +10,32 @@
     <div v-if="isEditable">
       <h4>Taken At:</h4>
       <h5>{{ med.fields.taken }}</h5>
-      <img
-        v-if="!isRefreshing"
-        src="https://i.imgur.com/NhIlDPF.png"
-        alt="delete"
-        width="20px"
-      />
-      <img
-        v-else
-        id="loading"
-        src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif"
-      />
+      <button @click="handleDelete" class="btn">
+        delete
+        <img
+          v-if="!isRefreshing"
+          src="https://i.imgur.com/NhIlDPF.png"
+          alt="delete"
+          width="20px"
+        />
+        <img
+          v-else
+          id="loading"
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif"
+        />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { deleteMed } from '../services/userMeds';
+
 export default {
   name: 'MedCard',
   props: {
     med: Object,
+    onDeleteMed: Function,
     isEditable: Boolean,
   },
   data() {
@@ -37,8 +43,19 @@ export default {
       isRefreshing: false,
     };
   },
+  methods: {
+    handleDelete: function() {
+      this.isRefreshing = true;
+      setTimeout(async () => {
+        await deleteMed(this.med.id);
+        this.onDeleteMed(this.med.id);
+        this.isRefreshing = false;
+      }, 150);
+    },
+  },
 };
 </script>
+
 <style>
 .med-card {
   margin: 20px;
@@ -53,8 +70,16 @@ export default {
 }
 
 .med-card:hover {
-  cursor: pointer;
   /* why is transform not working in vue? :( */
   transform: scale(1.1) ease-in;
+}
+
+.btn {
+  align-items: center;
+  padding: 10px 40px;
+  overflow: hidden;
+  background: red;
+  border: none;
+  cursor: pointer;
 }
 </style>

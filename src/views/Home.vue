@@ -22,25 +22,38 @@ export default {
     };
   },
   methods: {
+    sortMeds: function(meds) {
+      const sortedMeds = meds.sort((recordA, recordB) => {
+        const date1 = new Date(recordA.createdTime).getTime();
+        const date2 = new Date(recordB.createdTime).getTime();
+
+        if (date1 < date2) {
+          return -1;
+        } else if (date1 > date2) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      return sortedMeds;
+    },
     onDeleteMed: function(id) {
       let newState = this.userMeds.filter((med) => med.id !== id);
       return (this.userMeds = newState);
     },
+    fetchUserMeds: async function() {
+      const medData = await getUserMeds();
+      return (this.userMeds = this.sortMeds(medData));
+    },
+    fetchAllMeds: async function() {
+      const medData = await getAllMeds();
+      return (this.allMeds = medData);
+    },
   },
   mounted() {
-    const fetchUserMeds = async () => {
-      const medData = await getUserMeds();
-      this.userMeds = medData;
-    };
-
-    const fetchAllMeds = async () => {
-      const medData = await getAllMeds();
-      this.allMeds = medData;
-    };
-
-    fetchUserMeds();
-    fetchAllMeds();
+    this.fetchUserMeds();
+    this.fetchAllMeds();
   },
 };
 </script>
-<style lang=""></style>
+<style></style>

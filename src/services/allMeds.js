@@ -11,3 +11,14 @@ export const getAllMeds = async () => {
   const meds = response.data.records;
   return meds;
 };
+
+export const getMedById = async (id) => {
+  const medByIdUrl = `https://api.airtable.com/v0/${process.env.VUE_APP_AIRTABLE_BASE}/prescriptions/${id}`;
+
+  const response = await axios.get(medByIdUrl, {
+    headers: {
+      Authorization: `Bearer ${process.env.VUE_APP_AIRTABLE_KEY}`,
+    },
+  });
+  return response.data;
+};

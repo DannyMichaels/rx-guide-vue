@@ -3,7 +3,9 @@
     <Search :onChange="handleSearch" />
     <ul class="meds-list">
       <template v-for="med in queriedMeds" :key="med.id">
+        <!-- <router-link :to="{ name: 'MedDetail', params: { id: med.id } }"> -->
         <MedCard :med="med" :isEditable="false" />
+        <!-- </router-link> -->
       </template>
     </ul>
   </div>

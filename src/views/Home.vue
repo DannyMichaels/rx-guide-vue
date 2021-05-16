@@ -4,16 +4,20 @@
       <MedCard :med="med" :isEditable="true" :onDeleteMed="onDeleteMed" />
     </template>
   </ul>
+  <CreateMed :allMeds="allMeds" :onAddMed="onAddMed" />
 </template>
+
 <script>
 import { getAllMeds } from '../services/allMeds';
 import { getUserMeds } from '../services/userMeds';
 import MedCard from '../components/MedCard';
+import CreateMed from '../components/CreateMed';
 
 export default {
   name: 'Home',
   components: {
     MedCard,
+    CreateMed,
   },
   data() {
     return {
@@ -37,9 +41,17 @@ export default {
       });
       return sortedMeds;
     },
+    onAddMed: function(newMed) {
+      return (this.userMeds = [...this.userMeds, newMed]);
+    },
     onDeleteMed: function(id) {
       let newState = this.userMeds.filter((med) => med.id !== id);
       return (this.userMeds = newState);
+    },
+    onUpdateMed: function(updatedMed) {
+      this.userMeds = this.userMeds.map((med) =>
+        med.id === updatedMed.id ? updatedMed : med
+      );
     },
     fetchUserMeds: async function() {
       const medData = await getUserMeds();

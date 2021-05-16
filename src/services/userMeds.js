@@ -19,3 +19,18 @@ export const deleteMed = async (medId) => {
     },
   });
 };
+
+export const prescribeMed = async (fields) => {
+  const prescribeUrl = `https://api.airtable.com/v0/${process.env.VUE_APP_AIRTABLE_BASE}/addedMeds`;
+
+  const response = await axios.post(
+    prescribeUrl,
+    { fields },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.VUE_APP_AIRTABLE_KEY}`,
+      },
+    }
+  );
+  return response.data;
+};

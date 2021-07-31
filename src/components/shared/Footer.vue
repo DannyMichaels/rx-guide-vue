@@ -2,6 +2,7 @@
   <footer>
     <router-link :to="{ name: 'Home' }">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link :to="{ name: 'CustomMed' }">Custom</router-link>
   </footer>
 </template>
 <script>

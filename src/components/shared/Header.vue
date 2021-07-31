@@ -27,6 +27,6 @@ export default {
 <style scoped>
 .rx-logo {
   width: 350px;
-  height: 300px;
+  height: 30vh;
 }
 </style>

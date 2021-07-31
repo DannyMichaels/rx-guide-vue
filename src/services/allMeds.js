@@ -22,3 +22,16 @@ export const getMedById = async (id) => {
   });
   return response.data;
 };
+
+export const createCustomMed = async (fields) => {
+  const response = await axios.post(
+    airtableURL,
+    { fields },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.VUE_APP_AIRTABLE_KEY}`,
+      },
+    }
+  );
+  return response.data;
+};

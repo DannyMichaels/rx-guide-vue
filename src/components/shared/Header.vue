@@ -1,13 +1,19 @@
 <template>
   <div v-if="isNotErrorPage">
-    Header
+    <router-link :to="{ name: 'Home' }">
+      <img class="rx-logo" src="https://i.imgur.com/O014jTc.png" alt="Logo" />
+    </router-link>
   </div>
   <div v-else>ErrorHeader</div>
 </template>
 <script>
 export default {
   name: 'Header',
-
+  data() {
+    return {
+      isNavShowing: false,
+    };
+  },
   methods: {
     isNotErrorPage: function() {
       let whitelist = /^\/about|^\/custom-medication|^\/medication|^\/$/;
@@ -18,4 +24,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.rx-logo {
+  width: 350px;
+  height: 300px;
+}
+</style>

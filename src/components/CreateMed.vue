@@ -99,6 +99,15 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 200px;
+  max-width: 200px;
+  margin: 0 auto;
+  border: 1px solid pink;
+  padding: 10px;
+  background-color: #ffccff;
+  box-shadow: 5px 5px peachpuff;
+  align-items: center;
+  margin-top: 20px;
 }
 button {
   background: none;
